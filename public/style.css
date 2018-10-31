@@ -1,0 +1,25 @@
+.selectable-list-component .selected {
+    color: red;
+}
+
+li {
+    cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.sliding-menu  li {
+  list-style-type: none;
+}
+.sliding-menu-component .sliding-menu_title::before,
+.sliding-menu-container .sliding-menu-container__item::before{
+  content: '▶ ';
+  font-size: 80%;
+  color: green;
+}
+
+.sliding-menu.open .sliding-menu_title::before {
+  content: '▼ ';
+}
