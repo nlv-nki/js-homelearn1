@@ -20,6 +20,8 @@ export default class SlidingMenu {
 
         if (!slidingMenu.classList.contains('open')) {
           slidingMenu.classList.add('open')
+        } else {
+          slidingMenu.classList.remove('open')
         }
 
         menuContainer.classList.toggle('hidden')

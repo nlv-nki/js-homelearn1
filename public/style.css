@@ -1,3 +1,12 @@
+.main-container {
+  margin: 0 auto;
+  width: 1200px;
+}
+.main-container > div{
+  width: 450px;
+  height: 200px;
+  float: left;
+}
 .selectable-list-component .selected {
     color: red;
 }
@@ -22,4 +31,74 @@ li {
 
 .sliding-menu.open .sliding-menu_title::before {
   content: '▼ ';
+}
+
+
+
+.carusel {
+  position: relative;
+  width: 398px;
+  padding: 10px 40px;
+  border: 1px solid #CCC;
+  border-radius: 15px;
+  background: #eee;
+}
+
+.carusel__wrapper {
+  width: inherit;
+  overflow: hidden;
+
+}
+
+
+.carusel__items {
+  width: 9999px;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.carusel__item {
+  list-style-type: none;
+  position: relative;
+  float: left;
+  display: inline-block;
+  cursor: default;
+}
+
+
+
+
+.carusel__item img{
+
+  width: 130px;
+  height: 130px;
+  display: block;
+}
+
+
+.carusel__button {
+  position: absolute;
+  top: 60px;
+  padding: 0;
+  background: #ddd;
+  border-radius: 15px;
+  border: 1px solid gray;
+  font-size: 24px;
+  line-height: 24px;
+  color: #444;
+  display: block;
+  cursor: pointer;
+}
+
+.carusel__button--next {
+  right: 7px;
+
+}
+
+
+.carusel__button--prev {
+
+  left: 7px;
 }
