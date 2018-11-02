@@ -6,6 +6,7 @@ export default class Сarousel {
     this._imageWidth = options.width;
     this._itemInWindow = options.itemInWindow;
     this._counter = 0;
+    this._imageCounter = 0
     this._render();
     this._listener();
   }
@@ -22,13 +23,20 @@ export default class Сarousel {
 
   _onMove (direction) {
     let caruselItems = this._element.querySelector('.carusel__items');
-
+    let items = caruselItems.querySelectorAll('li')
     if (direction === 'right') {
-      if (this._counter < this._imagesQuantity - this._itemInWindow) {
-        this._counter++
+
+      this._counter++;
+
+      if (this._counter >= this._imagesQuantity -2) {
+        caruselItems.insertAdjacentHTML('beforeEnd',items[this._imageCounter].outerHTML)
+        this._imageCounter++;
+        items[this._imagesQuantity - this._imageCounter].remove() //Не могу понять как удалить первый элемент теперь
       }
+
       caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
-      console.log(caruselItems.style.marginLeft)
+
+
     } else if (direction === 'left') {
       if (caruselItems.style.marginLeft === '' || caruselItems.style.marginLeft.slice(1, -2) <= 0) {
         caruselItems.style.marginLeft = 0 + 'px';
