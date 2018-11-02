@@ -30,7 +30,7 @@ new Сarousel({
     'https://js.cx/carousel/6.png'
   ],
   options: {
-    count: 3,
+    itemInWindow: 3,
     width: 130
   }
 });
