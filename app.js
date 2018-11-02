@@ -25,6 +25,8 @@ new Сarousel({
     'https://js.cx/carousel/1.png',
     'https://js.cx/carousel/2.png',
     'https://js.cx/carousel/3.png',
+    'https://js.cx/carousel/3.png',
+    'https://js.cx/carousel/4.png',
     'https://js.cx/carousel/4.png',
     'https://js.cx/carousel/5.png',
     'https://js.cx/carousel/6.png'
