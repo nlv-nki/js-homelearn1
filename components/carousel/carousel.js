@@ -28,13 +28,16 @@ export default class Сarousel {
         this._counter++
       }
       caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
-      console.log(caruselItems.style.marginLeft )
+      console.log(caruselItems.style.marginLeft)
     } else if (direction === 'left') {
-      if (caruselItems.style.marginLeft === '' || caruselItems.style.marginLeft.slice(1, -2) === 0) {
+      if (caruselItems.style.marginLeft === '' || caruselItems.style.marginLeft.slice(1, -2) <= 0) {
         caruselItems.style.marginLeft = 0 + 'px';
+        console.log(caruselItems.style.marginLeft, 234)
       } else {
         let position = caruselItems.style.marginLeft.slice(1, -2);
+
         caruselItems.style.marginLeft = -position + this._imageWidth + 'px';
+        console.log(caruselItems.style.marginLeft)
         this._counter--
       }
     }
