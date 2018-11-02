@@ -99,31 +99,36 @@ __webpack_require__.r(__webpack_exports__);
 
 new _components_selectable_list_component_js__WEBPACK_IMPORTED_MODULE_0__["SuperSelectList"]({
   elem: document.querySelector('.selectable-list-component'),
-  menu: ['Кристофер Робин', 'Винни-Пух', 'Ослик Иа', 'Мудрая Сова', 'Кролик. Просто кролик.' ]
+  menu: [
+    'Кристофер Робин',
+    'Винни-Пух',
+    'Ослик Иа',
+    'Мудрая Сова',
+    'Кролик. Просто кролик.'
+  ]
 });
 
 new _components_sliding_menu_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
   elem: document.querySelector('.sliding-menu-component'),
   title: 'Слайд меню',
-  menu: ['Алена', 'Винни-Пух', 'Хильда', 'Марта', 'Червяк1.', 'Червяк2.' ]
+  menu: ['Алена', 'Винни-Пух', 'Хильда', 'Марта', 'Червяк1.', 'Червяк2.']
 });
 
 new _components_carousel_carousel_js__WEBPACK_IMPORTED_MODULE_2__["default"]({
   elem: document.querySelector('.carusel-component'),
-  images: ['https://js.cx/carousel/1.png',
-           'https://js.cx/carousel/2.png',
-           'https://js.cx/carousel/3.png',
-           'https://js.cx/carousel/4.png',
-           'https://js.cx/carousel/5.png',
-           'https://js.cx/carousel/6.png'],
+  images: [
+    'https://js.cx/carousel/1.png',
+    'https://js.cx/carousel/2.png',
+    'https://js.cx/carousel/3.png',
+    'https://js.cx/carousel/4.png',
+    'https://js.cx/carousel/5.png',
+    'https://js.cx/carousel/6.png'
+  ],
   options: {
-            count: 3,
-            width: 130,
-
+    itemInWindow: 3,
+    width: 130
   }
-
 });
-
 
 
 /***/ }),
@@ -259,26 +264,44 @@ class SlidingMenu {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Сarousel; });
 class Сarousel {
-  constructor ({elem, images, options}) {
+  constructor ({ elem, images, options }) {
     this._element = elem;
     this._images = images;
+    this._imagesQuantity = this._images.length;
+    this._imageWidth = options.width;
+    this._itemInWindow = options.itemInWindow;
+    this._counter = 0;
     this._render();
     this._listener();
-    console.log(options)
   }
 
-
-  _listener() {
-    this._element.addEventListener('click', this._onMove);
-
+  _listener () {
+    this._element.addEventListener('click', (event) => {
+      if (event.target.classList.contains('carusel__button--next')) {
+        this._onMove('right')
+      } else if (event.target.classList.contains('carusel__button--prev')) {
+        this._onMove('left')
+      }
+    });
   }
 
-  _onMove() {
+  _onMove (direction) {
+    let caruselItems = this._element.querySelector('.carusel__items');
 
-    console.dir(event.target.classList.contains('carusel__button--next'))
-
+    if (direction === 'right') {
+      if (this._counter < this._imagesQuantity - this._itemInWindow) {
+        this._counter++
+      }
+      caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
+    } else if (direction === 'left') {
+      if (caruselItems.style.marginLeft.slice(1, -2) > 0) {
+        caruselItems.style.marginLeft = 0 + 'px';
+      } else if (caruselItems.style.marginLeft.slice(1, -2) < 0) {
+        let position = caruselItems.style.marginLeft.slice(1, -2);
+        caruselItems.style.marginLeft = -position + this._imageWidth + 'px';
+      }
+    }
   }
-
 
   _render () {
     this._element.innerHTML = `
@@ -287,12 +310,14 @@ class Сarousel {
     <button class="carusel__button carusel__button--prev">⇦</button>
       <div class="carusel__wrapper">
         <ul class="carusel__items">
-           ${this._images.map(item => `<li class="carusel__item"><img src="${item}"></li> `).join('')} 
+           ${this._images
+    .map((item, index) => `<li class="carusel__item">${index}<img src="${item}"></li> `)
+    .join('')} 
         </ul>
       </div>
     <button class="carusel__button carusel__button--next">⇨</button>
     </div>
-    `
+    `;
   }
 }
 
