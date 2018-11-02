@@ -5,7 +5,6 @@
 .main-container > div{
   width: 450px;
   height: 200px;
-  float: left;
 }
 .selectable-list-component .selected {
     color: red;
