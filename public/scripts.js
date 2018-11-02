@@ -120,6 +120,8 @@ new _components_carousel_carousel_js__WEBPACK_IMPORTED_MODULE_2__["default"]({
     'https://js.cx/carousel/1.png',
     'https://js.cx/carousel/2.png',
     'https://js.cx/carousel/3.png',
+    'https://js.cx/carousel/3.png',
+    'https://js.cx/carousel/4.png',
     'https://js.cx/carousel/4.png',
     'https://js.cx/carousel/5.png',
     'https://js.cx/carousel/6.png'
@@ -211,7 +213,6 @@ class SlidingMenu {
     this._element = elem;
     this._title = title;
     this._menu = menu;
-    console.log(this._element)
     this._render();
     this._menuToogler();
   }
@@ -293,12 +294,14 @@ class Сarousel {
         this._counter++
       }
       caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
+      console.log(caruselItems.style.marginLeft )
     } else if (direction === 'left') {
-      if (caruselItems.style.marginLeft.slice(1, -2) > 0) {
+      if (caruselItems.style.marginLeft === '' || caruselItems.style.marginLeft.slice(1, -2) === 0) {
         caruselItems.style.marginLeft = 0 + 'px';
-      } else if (caruselItems.style.marginLeft.slice(1, -2) < 0) {
+      } else {
         let position = caruselItems.style.marginLeft.slice(1, -2);
         caruselItems.style.marginLeft = -position + this._imageWidth + 'px';
+        this._counter--
       }
     }
   }
