@@ -211,7 +211,6 @@ class SlidingMenu {
     this._element = elem;
     this._title = title;
     this._menu = menu;
-    console.log(this._element)
     this._render();
     this._menuToogler();
   }
