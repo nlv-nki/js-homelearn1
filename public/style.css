@@ -5,7 +5,6 @@
 .main-container > div{
   width: 450px;
   height: 200px;
-  float: left;
 }
 .selectable-list-component .selected {
     color: red;
@@ -68,6 +67,11 @@ li {
 }
 
 
+.carusel__item span{
+  top: 20px;
+  position: absolute;
+  left: 60px;
+}
 
 
 .carusel__item img{

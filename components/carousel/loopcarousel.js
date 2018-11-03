@@ -1,4 +1,4 @@
-export default class Сarousel {
+export default class LoopСarousel {
   constructor ({ elem, images, options }) {
     this._element = elem;
     this._images = images;
@@ -6,6 +6,7 @@ export default class Сarousel {
     this._imageWidth = options.width;
     this._itemInWindow = options.itemInWindow;
     this._counter = 0;
+    this._imageCounter = 0
     this._render();
     this._listener();
   }
@@ -22,23 +23,34 @@ export default class Сarousel {
 
   _onMove (direction) {
     let caruselItems = this._element.querySelector('.carusel__items');
+    let items = caruselItems.querySelectorAll('li')
 
     if (direction === 'right') {
       if (this._counter < this._imagesQuantity - this._itemInWindow) {
-        this._counter++
-      }
-      caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
-      console.log(caruselItems.style.marginLeft)
-    } else if (direction === 'left') {
-      if (caruselItems.style.marginLeft === '' || caruselItems.style.marginLeft.slice(1, -2) <= 0) {
-        caruselItems.style.marginLeft = 0 + 'px';
-        console.log(caruselItems.style.marginLeft, 234)
-      } else {
-        let position = caruselItems.style.marginLeft.slice(1, -2);
+        this._counter++;
 
-        caruselItems.style.marginLeft = -position + this._imageWidth + 'px';
-        console.log(caruselItems.style.marginLeft)
-        this._counter--
+        if (this._counter < 0) {
+          this._counter = 1
+        }
+      }
+
+      caruselItems.insertAdjacentHTML('beforeEnd', items[0].outerHTML)
+      this._imageCounter++;
+      items[0].remove()
+
+      caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
+    } else if (direction === 'left') {
+      let position = caruselItems.style.marginLeft.slice(1, -2);
+
+      caruselItems.style.marginLeft = -position + this._imageWidth + 'px';
+
+      this._counter--;
+
+      if (this._counter < 0) {
+        caruselItems.insertAdjacentHTML('afterBegin', items[items.length - 1].outerHTML);
+
+        caruselItems.style.marginLeft = +position - this._imageWidth + 'px';
+        items[items.length - 1].remove()
       }
     }
   }
@@ -51,8 +63,8 @@ export default class Сarousel {
       <div class="carusel__wrapper">
         <ul class="carusel__items">
            ${this._images
-      .map((item, index) => `<li class="carusel__item">${index}<img src="${item}"></li> `)
-      .join('')} 
+    .map((item, index) => `<li class="carusel__item"><span>${index}</span><img src="${item}"></li> `)
+    .join('')} 
         </ul>
       </div>
     <button class="carusel__button carusel__button--next">⇨</button>

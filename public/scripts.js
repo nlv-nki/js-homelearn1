@@ -93,29 +93,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_selectable_list_component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _components_sliding_menu_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _components_carousel_carousel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _components_carousel_loopcarousel_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
 
 
 
 
-new _components_selectable_list_component_js__WEBPACK_IMPORTED_MODULE_0__["SuperSelectList"]({
-  elem: document.querySelector('.selectable-list-component'),
-  menu: [
-    'Кристофер Робин',
-    'Винни-Пух',
-    'Ослик Иа',
-    'Мудрая Сова',
-    'Кролик. Просто кролик.'
-  ]
-});
 
-new _components_sliding_menu_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  elem: document.querySelector('.sliding-menu-component'),
-  title: 'Слайд меню',
-  menu: ['Алена', 'Винни-Пух', 'Хильда', 'Марта', 'Червяк1.', 'Червяк2.']
-});
+//
+// new SuperSelectList({
+//   elem: document.querySelector('.selectable-list-component'),
+//   menu: [
+//     'Кристофер Робин',
+//     'Винни-Пух',
+//     'Ослик Иа',
+//     'Мудрая Сова',
+//     'Кролик. Просто кролик.'
+//   ]
+// });
+
+// new SlidingMenu({
+//   elem: document.querySelector('.sliding-menu-component'),
+//   title: 'Название Слайд меню',
+//   menu: ['Раз', 'Два', 'Три']
+// });
 
 new _components_carousel_carousel_js__WEBPACK_IMPORTED_MODULE_2__["default"]({
   elem: document.querySelector('.carusel-component'),
+  images: [
+    'https://js.cx/carousel/1.png',
+    'https://js.cx/carousel/2.png',
+    'https://js.cx/carousel/3.png',
+    'https://js.cx/carousel/3.png',
+    'https://js.cx/carousel/4.png',
+    'https://js.cx/carousel/4.png',
+    'https://js.cx/carousel/5.png',
+    'https://js.cx/carousel/6.png'
+  ],
+  options: {
+    itemInWindow: 3,
+    width: 130
+  }
+});
+
+
+new _components_carousel_loopcarousel_js__WEBPACK_IMPORTED_MODULE_3__["default"]({
+  elem: document.querySelector('.loopСarousel-component'),
   images: [
     'https://js.cx/carousel/1.png',
     'https://js.cx/carousel/2.png',
@@ -317,7 +339,96 @@ class Сarousel {
       <div class="carusel__wrapper">
         <ul class="carusel__items">
            ${this._images
-    .map((item, index) => `<li class="carusel__item">${index}<img src="${item}"></li> `)
+      .map((item, index) => `<li class="carusel__item">${index}<img src="${item}"></li> `)
+      .join('')} 
+        </ul>
+      </div>
+    <button class="carusel__button carusel__button--next">⇨</button>
+    </div>
+    `;
+  }
+}
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LoopСarousel; });
+class LoopСarousel {
+  constructor ({ elem, images, options }) {
+    this._element = elem;
+    this._images = images;
+    this._imagesQuantity = this._images.length;
+    this._imageWidth = options.width;
+    this._itemInWindow = options.itemInWindow;
+    this._counter = 0;
+    this._imageCounter = 0
+    this._render();
+    this._listener();
+  }
+
+  _listener () {
+    this._element.addEventListener('click', (event) => {
+      if (event.target.classList.contains('carusel__button--next')) {
+        this._onMove('right')
+      } else if (event.target.classList.contains('carusel__button--prev')) {
+        this._onMove('left')
+      }
+    });
+  }
+
+  _onMove (direction) {
+    let caruselItems = this._element.querySelector('.carusel__items');
+    let items = caruselItems.querySelectorAll('li')
+
+    if (direction === 'right') {
+      if (this._counter < this._imagesQuantity - this._itemInWindow) {
+        console.log(this._counter, 'vpravo');
+        this._counter++
+
+        if (this._counter < 0) {
+          this._counter = 1
+          console.log(this._counter, 'counter <0 ')
+        }
+      }
+
+      caruselItems.insertAdjacentHTML('beforeEnd', items[0].outerHTML)
+      this._imageCounter++;
+      items[0].remove()
+
+      caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
+      console.log(caruselItems.style.marginLeft)
+    } else if (direction === 'left') {
+      let position = caruselItems.style.marginLeft.slice(1, -2);
+
+      caruselItems.style.marginLeft = -position + this._imageWidth + 'px';
+      console.log(caruselItems.style.marginLeft);
+
+      this._counter--;
+
+      if (this._counter < 0) {
+        caruselItems.insertAdjacentHTML('afterBegin', items[items.length - 1].outerHTML);
+        console.log(+position + this._imageWidth, 'pos + image width')
+        console.log(position, 'position')
+        caruselItems.style.marginLeft = +position - this._imageWidth + 'px';
+        items[items.length - 1].remove()
+        console.log(this._counter, 'counter')
+      }
+    }
+  }
+
+  _render () {
+    this._element.innerHTML = `
+    
+    <div class="carusel">
+    <button class="carusel__button carusel__button--prev">⇦</button>
+      <div class="carusel__wrapper">
+        <ul class="carusel__items">
+           ${this._images
+    .map((item, index) => `<li class="carusel__item"><span>${index}</span><img src="${item}"></li> `)
     .join('')} 
         </ul>
       </div>
