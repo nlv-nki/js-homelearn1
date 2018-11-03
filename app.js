@@ -46,11 +46,13 @@ new LoopСarousel({
     'https://js.cx/carousel/1.png',
     'https://js.cx/carousel/2.png',
     'https://js.cx/carousel/3.png',
-    'https://js.cx/carousel/3.png',
-    'https://js.cx/carousel/4.png',
     'https://js.cx/carousel/4.png',
     'https://js.cx/carousel/5.png',
-    'https://js.cx/carousel/6.png'
+    'https://js.cx/carousel/6.png',
+    'https://js.cx/carousel/7.png',
+    'https://js.cx/carousel/8.png',
+    'https://js.cx/carousel/9.png',
+    'https://js.cx/carousel/10.png'
   ],
   options: {
     itemInWindow: 3,

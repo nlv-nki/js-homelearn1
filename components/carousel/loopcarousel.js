@@ -32,25 +32,24 @@ export default class LoopСarousel {
         if (this._counter < 0) {
           this._counter = 1
         }
+      } else {
+        caruselItems.insertAdjacentHTML('beforeEnd', items[0].outerHTML)
+        items[0].remove()
       }
-
-      caruselItems.insertAdjacentHTML('beforeEnd', items[0].outerHTML)
-      this._imageCounter++;
-      items[0].remove()
 
       caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
     } else if (direction === 'left') {
       let position = caruselItems.style.marginLeft.slice(1, -2);
-
-      caruselItems.style.marginLeft = -position + this._imageWidth + 'px';
-
       this._counter--;
 
+      console.log(position)
       if (this._counter < 0) {
         caruselItems.insertAdjacentHTML('afterBegin', items[items.length - 1].outerHTML);
-
-        caruselItems.style.marginLeft = +position - this._imageWidth + 'px';
         items[items.length - 1].remove()
+
+        caruselItems.style.marginLeft = 0 + 'px';
+      } else {
+        caruselItems.style.marginLeft = -position - -this._imageWidth + 'px';
       }
     }
   }
