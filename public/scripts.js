@@ -142,11 +142,13 @@ new _components_carousel_loopcarousel_js__WEBPACK_IMPORTED_MODULE_3__["default"]
     'https://js.cx/carousel/1.png',
     'https://js.cx/carousel/2.png',
     'https://js.cx/carousel/3.png',
-    'https://js.cx/carousel/3.png',
-    'https://js.cx/carousel/4.png',
     'https://js.cx/carousel/4.png',
     'https://js.cx/carousel/5.png',
-    'https://js.cx/carousel/6.png'
+    'https://js.cx/carousel/6.png',
+    'https://js.cx/carousel/7.png',
+    'https://js.cx/carousel/8.png',
+    'https://js.cx/carousel/9.png',
+    'https://js.cx/carousel/10.png'
   ],
   options: {
     itemInWindow: 3,
@@ -386,36 +388,29 @@ class LoopСarousel {
 
     if (direction === 'right') {
       if (this._counter < this._imagesQuantity - this._itemInWindow) {
-        console.log(this._counter, 'vpravo');
-        this._counter++
+        this._counter++;
 
         if (this._counter < 0) {
           this._counter = 1
-          console.log(this._counter, 'counter <0 ')
         }
+      } else {
+        caruselItems.insertAdjacentHTML('beforeEnd', items[0].outerHTML)
+        items[0].remove()
       }
 
-      caruselItems.insertAdjacentHTML('beforeEnd', items[0].outerHTML)
-      this._imageCounter++;
-      items[0].remove()
-
       caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
-      console.log(caruselItems.style.marginLeft)
     } else if (direction === 'left') {
       let position = caruselItems.style.marginLeft.slice(1, -2);
-
-      caruselItems.style.marginLeft = -position + this._imageWidth + 'px';
-      console.log(caruselItems.style.marginLeft);
-
       this._counter--;
 
+      console.log(position)
       if (this._counter < 0) {
         caruselItems.insertAdjacentHTML('afterBegin', items[items.length - 1].outerHTML);
-        console.log(+position + this._imageWidth, 'pos + image width')
-        console.log(position, 'position')
-        caruselItems.style.marginLeft = +position - this._imageWidth + 'px';
         items[items.length - 1].remove()
-        console.log(this._counter, 'counter')
+
+        caruselItems.style.marginLeft = 0 + 'px';
+      } else {
+        caruselItems.style.marginLeft = -position - -this._imageWidth + 'px';
       }
     }
   }
