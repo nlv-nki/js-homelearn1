@@ -27,12 +27,10 @@ export default class LoopСarousel {
 
     if (direction === 'right') {
       if (this._counter < this._imagesQuantity - this._itemInWindow) {
-        console.log(this._counter, 'vpravo');
-        this._counter++
+        this._counter++;
 
         if (this._counter < 0) {
           this._counter = 1
-          console.log(this._counter, 'counter <0 ')
         }
       }
 
@@ -41,22 +39,18 @@ export default class LoopСarousel {
       items[0].remove()
 
       caruselItems.style.marginLeft = -this._imageWidth * this._counter + 'px';
-      console.log(caruselItems.style.marginLeft)
     } else if (direction === 'left') {
       let position = caruselItems.style.marginLeft.slice(1, -2);
 
       caruselItems.style.marginLeft = -position + this._imageWidth + 'px';
-      console.log(caruselItems.style.marginLeft);
 
       this._counter--;
 
       if (this._counter < 0) {
         caruselItems.insertAdjacentHTML('afterBegin', items[items.length - 1].outerHTML);
-        console.log(+position + this._imageWidth, 'pos + image width')
-        console.log(position, 'position')
+
         caruselItems.style.marginLeft = +position - this._imageWidth + 'px';
         items[items.length - 1].remove()
-        console.log(this._counter, 'counter')
       }
     }
   }
